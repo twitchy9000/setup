@@ -1,0 +1,14 @@
+- name: Install zsh
+  apt: name=zsh
+  when: ansible_facts['distribution'] == 'Ubuntu'
+- name: Change shell 
+  shell: chsh -s `which zsh`
+  when: ansible_facts['distribution'] == 'Ubuntu'
+- name: Install ohmyzsh
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  when: ansible_facts['distribution'] == 'Ubuntu'
+- name: Install ohmyzsh plugin autosuggestions
+  when: ansible_facts['distribution'] == 'Ubuntu'
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions'
+    dest: '~/.oh-my-zsh/plugins/zsh-autosuggestions'

@@ -1,0 +1,12 @@
+- name: Install nvm
+  become: false
+  homebrew:
+    name: nvm
+    state: present
+  tags:
+    - node 
+  when: ansible_facts['distribution'] == 'MacOSX'
+- name: Install node
+  become: false
+  shell: . ~/.zshrc && nvm install --lts 
+
